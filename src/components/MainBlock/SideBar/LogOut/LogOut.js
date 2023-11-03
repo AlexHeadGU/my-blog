@@ -4,7 +4,8 @@ import './LogOut.css'
 export const LogOut = ({setIsLoggedIn}) => {
 
   const logOut = () => {
-    setIsLoggedIn(false)
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
   }
 
   return (

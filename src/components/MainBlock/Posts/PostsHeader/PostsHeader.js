@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { SearchForm } from "./SearchForm/SearchForm";
 import './PostsHeader.css'
+import { AddForm } from "./AddForm/AddForm";
 
-export const PostsHeader = () => {
+export const PostsHeader = ({ blogPosts, setBlogPosts }) => {
+  const [showAddForm, setShowAddForm] = useState(false);
+
   return (
-      <section className="postsHeader">
-        <h1>Posts</h1>
-        <SearchForm />
-      </section>
+    <section className="postsHeader">
+      <h1>Posts</h1>
+      <button onClick={() => setShowAddForm(true)} className="showAddFormBtn">
+        Создать пост
+      </button>
+
+      <SearchForm />
+
+      {showAddForm && (
+        <AddForm
+          setBlogPosts={setBlogPosts}
+          blogPosts={blogPosts}
+          setShowAddForm={setShowAddForm}
+        />
+      )}
+    </section>
   )
 }

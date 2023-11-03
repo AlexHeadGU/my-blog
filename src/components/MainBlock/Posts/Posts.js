@@ -1,48 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { PostsHeader } from "./PostsHeader/PostsHeader";
-import postImage from '../../../assets/images/postImage.jpg'
 import './Posts.css'
 import { Post } from "./Post/Post";
+import { POSTS } from "../../../utils/constans";
+import { setPostsToLocalStorage } from '../../../utils/helpers'
+import { EditForm } from "./EditForm/EditForm";
 
 export const Posts = () => {
+
+  const [blogPosts, setBlogPosts] = useState(
+    JSON.parse(localStorage.getItem('blogPosts')) || POSTS
+  );
+
+  const likePost = (pos) => {
+    const updatedPosts = [...blogPosts];
+
+    updatedPosts[pos].liked = !updatedPosts[pos].liked;
+
+    setPostsToLocalStorage(updatedPosts);
+    setBlogPosts(updatedPosts)
+  }
+
+  const deletePost = (postId) => {
+    const isDelete = window.confirm('Удалить пост?');
+
+    if (isDelete) {
+      const updatedPosts = blogPosts.filter((post) => {
+        return post.id !== postId
+      });
+      setPostsToLocalStorage(updatedPosts);
+      setBlogPosts(updatedPosts);
+    }
+  }
+
+  const [selectedPost, setSelectedPost] = useState({});
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  const selectPost = (pos) => {
+    setSelectedPost(blogPosts[pos])
+    setShowEditForm(true)
+  };
+
   return (
     <div className="postsWrapper">
-      <PostsHeader />
+      <PostsHeader setBlogPosts={setBlogPosts} blogPosts={blogPosts} />
 
       <section className="posts">
-        <Post
-          title='Post 1'
-          description='It is a long established fact that a reader will be distracted by the readable content '
-          image={postImage}
-        />
-        <Post 
-         title='Post 2'
-         description='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '
-         liked
-        />
-        <Post 
-         title='Post 3'
-         description='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '
-         image={postImage}
-        />
-        <Post 
-         title='Post 4'
-         description='It is a long established fact that a reader '
-         liked
-        />
-        <Post 
-         title='Post 5'
-         description='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '
-         liked
-         image={postImage}
-        />
-        <Post 
-         title='Post 6'
-         description='It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '
-         liked
-         image={postImage}
-         />
+        {
+          blogPosts.map((post, pos) => {
+            return (
+              <Post
+                title={post.title}
+                description={post.description}
+                liked={post.liked}
+                image={post.image}
+                likePost={() => likePost(pos)}
+                deletePost={() => deletePost(post.id)}
+                selectPost={() => selectPost(pos)}
+                key={post.id}
+              />
+            )
+          })
+        }
       </section>
+      {showEditForm && (
+        <EditForm
+          setShowEditForm={setShowEditForm}
+          selectedPost={selectedPost}
+          setBlogPosts={setBlogPosts}
+          blogPosts={blogPosts}
+        />
+      )}
     </div>
   )
 }

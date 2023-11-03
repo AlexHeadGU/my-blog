@@ -24,3 +24,8 @@
   color: crimson;
   font-weight: 700;
 }
+
+.post svg {
+  width: 20px;
+  height: 20px;
+}
