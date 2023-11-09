@@ -43,3 +43,5 @@ export const POSTS = [
     image: postImage
   },
 ]
+
+export const POSTS_URL = 'https://654cdcc477200d6ba8599261.mockapi.io/api/posts/'

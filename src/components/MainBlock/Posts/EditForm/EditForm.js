@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './EditForm.css'
 import { ReactComponent as CloseIcon } from "../../../../assets/images/close.svg";
-import { setPostsToLocalStorage } from "../../../../utils/helpers";
+import { POSTS_URL } from "../../../../utils/constans";
 
 export const EditForm = ({ setShowEditForm, selectedPost, setBlogPosts, blogPosts }) => {
   const [postTitle, setPostTitle] = useState(selectedPost?.title);
@@ -24,14 +24,23 @@ export const EditForm = ({ setShowEditForm, selectedPost, setBlogPosts, blogPost
       description: postDesc
     }
 
-    const updatedPosts = blogPosts.map((post) => {
-      if (post.id === updatedPost.id) return updatedPost
-      return post
+    fetch(POSTS_URL + selectedPost.id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedPost)
     })
-
-    setBlogPosts(updatedPosts);
-    setPostsToLocalStorage(updatedPosts);
-    setShowEditForm(false);
+      .then(response => response.json())
+      .then(updatedPostFromServer => {
+        const updatedPosts = blogPosts.map((post) => {
+          if (post.id === updatedPost.id) return updatedPostFromServer;
+          return post
+        })
+        setBlogPosts(updatedPosts)
+        setShowEditForm(false);
+      })
+      .catch(error => console.log(error))
   };
 
   return (
