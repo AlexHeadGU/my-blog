@@ -36,7 +36,7 @@ export const Post = ({
     <div className="post">
       <img src={thumbnail} alt="post" />
       <h2>{title}</h2>
-      <p>{finalDescription}</p>
+      <div>{finalDescription}</div>
       <div className="actions">
         <button onClick={likePost} className="likeBtn">
           <HeartIcon fill={customFilling} />

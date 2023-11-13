@@ -1,11 +1,15 @@
 import { ReactComponent as ArrowLeftIcon} from '../../../../assets/images/left-arrow.svg';
+import { useHistory } from "react-router-dom";
 import './LogOut.css'
 
 export const LogOut = ({setIsLoggedIn}) => {
 
+  const history = useHistory();
+
   const logOut = () => {
     localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false);
+    history.push('/login');
   }
 
   return (
@@ -15,6 +19,5 @@ export const LogOut = ({setIsLoggedIn}) => {
         <span>Выход</span>
       </button>
     </section>
-
   )
 }

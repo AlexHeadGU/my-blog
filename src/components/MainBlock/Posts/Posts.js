@@ -4,11 +4,16 @@ import './Posts.css'
 import { Post } from "./Post/Post";
 import { POSTS_URL } from "../../../utils/constans";
 import { EditForm } from "./EditForm/EditForm";
-import { useFetchPosts } from "../../../utils/hooks";
 
-export const Posts = () => {
+export const Posts = ({
+  blogPosts,
+  setBlogPosts,
+  isLoading,
+  error,
+  isLikedPosts = false
+}) => {
 
-  const {blogPosts, setBlogPosts, isLoading, error} = useFetchPosts(POSTS_URL)
+  const likedPosts = blogPosts.filter((post) => post.liked)
 
   const likePost = (pos) => {
     const updatedPosts = [...blogPosts];
@@ -34,9 +39,9 @@ export const Posts = () => {
     const isDelete = window.confirm('Удалить пост?');
 
     if (isDelete) {
-      fetch(POSTS_URL + postId, {method: 'DELETE'})
-      .then(() => setBlogPosts(blogPosts.filter(post => post.id !== postId)))
-      .catch((error) => console.log(error))
+      fetch(POSTS_URL + postId, { method: 'DELETE' })
+        .then(() => setBlogPosts(blogPosts.filter(post => post.id !== postId)))
+        .catch((error) => console.log(error))
     };
   };
 
@@ -51,29 +56,27 @@ export const Posts = () => {
 
   if (isLoading) return <h1>Получаем данные...</h1>
 
-  if(error) return <h1>{error.message}</h1>
+  if (error) return <h1>{error.message}</h1>
 
   return (
     <div className="postsWrapper">
       <PostsHeader setBlogPosts={setBlogPosts} blogPosts={blogPosts} />
 
       <section className="posts">
-        {
-          blogPosts.map((post, pos) => {
-            return (
-              <Post
-                title={post.title}
-                description={post.description}
-                liked={post.liked}
-                thumbnail={post.thumbnail}
-                likePost={() => likePost(pos)}
-                deletePost={() => deletePost(post.id)}
-                selectPost={() => selectPost(post)}
-                key={post.id}
-              />
-            )
-          })
-        }
+        {(isLikedPosts ? likedPosts : blogPosts).map((post, pos) => {
+          return (
+            <Post
+              title={post.title}
+              description={post.description}
+              liked={post.liked}
+              thumbnail={post.thumbnail}
+              likePost={() => likePost(pos)}
+              deletePost={() => deletePost(post.id)}
+              selectPost={() => selectPost(post)} F
+              key={post.id}
+            />
+          );
+        })}
       </section>
       {showEditForm && (
         <EditForm
