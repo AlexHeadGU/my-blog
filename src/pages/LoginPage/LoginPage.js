@@ -13,10 +13,10 @@ export const LoginPage = ({ setIsLoggedIn }) => {
 
         e.preventDefault();
 
-        const userData = {
-            login: loginRef.current.value,
-            password: passwordRef.current.value
-        }
+        // const userData = {
+        //     login: loginRef.current.value,
+        //     password: passwordRef.current.value
+        // }
         localStorage.setItem('isLoggedIn', true)
         setIsLoggedIn(true);
         history.push('/');
