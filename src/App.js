@@ -3,8 +3,11 @@ import './App.css';
 import { MainBlock } from './components/MainBlock/MainBlock';
 import { LoginPage } from './pages/LoginPage/LoginPage'
 import { Switch, Route, Redirect } from 'react-router-dom/cjs/react-router-dom';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
+
+  const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem('isLoggedIn') === 'true'
@@ -25,13 +28,13 @@ function App() {
           exact
           path="/login"
           render={(props) => {
-            if (isLoggedIn) return <Redirect to="/" />
+            if (isLoggedIn) return <Redirect to="/blog" />
             return <LoginPage {...props} setIsLoggedIn={setIsLoggedIn} />
           }}
         />
 
         <Route path="/">
-        {isLoggedIn ? (
+          {isLoggedIn ? (
             <MainBlock setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
           ) : (
             <Redirect to="/login" />

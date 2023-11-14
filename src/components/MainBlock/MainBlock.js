@@ -13,13 +13,12 @@ export const MainBlock = ({ setIsLoggedIn, isLoggedIn }) => {
 		<>
 			<SideBar setIsLoggedIn={setIsLoggedIn} />
 			<main className="mainBlock">
-				<Route path="/blog">
-					<Posts {...postsData}
+				<Route exact path="/blog">
+					<Posts title="Posts" {...postsData}
 					/>
 				</Route>
 				<Route exact path="/favourite" component={Favourite}>
-					<Posts {...postsData} isLikedPosts
-					/>
+					<Posts title="Favourite posts" {...postsData} isLikedPosts />
 				</Route>
 			</main>
 		</>

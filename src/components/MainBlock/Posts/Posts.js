@@ -6,6 +6,7 @@ import { POSTS_URL } from "../../../utils/constans";
 import { EditForm } from "./EditForm/EditForm";
 
 export const Posts = ({
+  title,
   blogPosts,
   setBlogPosts,
   isLoading,
@@ -60,7 +61,12 @@ export const Posts = ({
 
   return (
     <div className="postsWrapper">
-      <PostsHeader setBlogPosts={setBlogPosts} blogPosts={blogPosts} />
+      <PostsHeader
+        title = {title}
+        isLikedPosts={isLikedPosts}
+        setBlogPosts={setBlogPosts}
+        blogPosts={blogPosts}
+      />
 
       <section className="posts">
         {(isLikedPosts ? likedPosts : blogPosts).map((post, pos) => {

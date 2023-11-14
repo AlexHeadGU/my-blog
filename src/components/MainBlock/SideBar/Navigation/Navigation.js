@@ -14,7 +14,7 @@ export const Navigation = () => {
       </NavLink>
       <NavLink to='/favourite' activeClassName='active'>
         <img src={starIcon} alt='Star' />
-        <span>Favorite</span>
+        <span>Favourite</span>
       </NavLink>
       <NavLink to='/settings' activeClassName='active'>
         <img src={settingsIcon} alt='Settings' />
