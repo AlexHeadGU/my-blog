@@ -7,14 +7,16 @@ export const PrivateRoute = ({
   isLoggedIn,
   path,
   exact,
-  children: Component
+  children: Component,
+  blogPostRoutes
 }) => {
   return (
     <Route
       path={path}
       exact={exact}
       render={({ location }) => {
-        const isPathExists = APP_ROUTES.some(route => route === location.pathname);
+        const allRoutes =[...APP_ROUTES, ...blogPostRoutes];
+        const isPathExists = allRoutes.some((route) => route === location.pathname);
         if (!isPathExists) return <NoMatch />
 
         if (isLoggedIn) return Component

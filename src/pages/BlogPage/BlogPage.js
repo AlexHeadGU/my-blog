@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { PostsHeader } from "./PostsHeader/PostsHeader";
-import './Posts.css'
+import './BlogPage.css'
 import { Post } from "./Post/Post";
-import { POSTS_URL } from "../../../utils/constans";
+import { POSTS_URL } from "../../utils/constans";
 import { EditForm } from "./EditForm/EditForm";
 
 export const Posts = ({
@@ -33,7 +33,6 @@ export const Posts = ({
         setBlogPosts(updatedPosts);
       })
       .catch((error) => console.log(error))
-
   };
 
   const deletePost = (postId) => {
@@ -62,7 +61,7 @@ export const Posts = ({
   return (
     <div className="postsWrapper">
       <PostsHeader
-        title = {title}
+        title={title}
         isLikedPosts={isLikedPosts}
         setBlogPosts={setBlogPosts}
         blogPosts={blogPosts}
@@ -72,10 +71,7 @@ export const Posts = ({
         {(isLikedPosts ? likedPosts : blogPosts).map((post, pos) => {
           return (
             <Post
-              title={post.title}
-              description={post.description}
-              liked={post.liked}
-              thumbnail={post.thumbnail}
+              {...post}
               likePost={() => likePost(pos)}
               deletePost={() => deletePost(post.id)}
               selectPost={() => selectPost(post)} F

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './AddForm.css'
-import { ReactComponent as CloseIcon } from "../../../../../assets/images/close.svg";
-import { POSTS_URL } from "../../../../../utils/constans";
+import { ReactComponent as CloseIcon } from "../../../../assets/images/close.svg"
+import { POSTS_URL } from "../../../../utils/constans";
 
 
 export const AddForm = ({ setShowAddForm, blogPosts, setBlogPosts }) => {

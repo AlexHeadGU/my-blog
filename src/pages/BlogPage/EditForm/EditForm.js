@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './EditForm.css'
-import { ReactComponent as CloseIcon } from "../../../../assets/images/close.svg";
-import { POSTS_URL } from "../../../../utils/constans";
+import { ReactComponent as CloseIcon } from "../../../assets/images/close.svg";
+import { POSTS_URL } from "../../../utils/constans";
 
 export const EditForm = ({ setShowEditForm, selectedPost, setBlogPosts, blogPosts }) => {
   const [postTitle, setPostTitle] = useState(selectedPost?.title);

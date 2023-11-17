@@ -1,5 +1,5 @@
 import React from "react";
-import { Posts } from "../../components/MainBlock/Posts/Posts";
+import { Posts } from "../BlogPage/BlogPage";
 
 export const Favourite = () => {
   return (
