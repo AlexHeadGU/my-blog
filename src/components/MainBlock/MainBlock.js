@@ -21,7 +21,7 @@ export const MainBlock = ({ setIsLoggedIn, postsData }) => {
 						<Posts title="Favourite posts" {...postsData} isLikedPosts />
 					</Route>
 					<Route path='/blog/:postId'>
-						<BlogPostPage setBlogPosts={postsData.setBlogPosts}/>
+						<BlogPostPage setBlogPosts={postsData.setBlogPosts} />
 					</Route>
 					<Route exact path="/">
 						<Redirect to="/blog" />
